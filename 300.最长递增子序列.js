@@ -66,7 +66,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var lengthOfLIS = function (nums) {
+var lengthOfLISErr = function (nums) {
   var record = []
   // 最大值
   var res = 1
@@ -103,14 +103,28 @@ var lengthOfLIS = function (nums) {
  * @param {number[]} nums
  * @return {number}
  */
-const lengthOfLIS = function (nums) {
-  const res = 1
-
-  const iterationArr = []
-
-  for (let index = 0; index < array.length; index++) {
-    const element = array[index]
+var lengthOfLIS = function (nums) {
+  var res = 1
+  // dp表示对应索引结尾的递增最长长度，第一位永远为0
+  const dp = [1]
+  for (let index = 1; index < nums.length; index++) {
+    // 每位初始化为1
+    dp[index] = 1
+    // 如果满足递增条件
+    // 循环dp数组取最长
+    let temp = 0
+    for (let i = 0; i < dp.length; i++) {
+      if (nums[index] > nums[i]) {
+        temp = dp[index] + dp[i] > temp ? dp[index] + dp[i] : temp
+      }
+    }
+    dp[index] = temp || 1
   }
+  console.log(dp)
+  // 取最大长度
+  dp.forEach((r) => {
+    res = r > res ? r : res
+  })
 
   return res
 }
