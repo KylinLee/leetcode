@@ -89,20 +89,36 @@ var findMinArrowShots = function (points) {
   const len = points.length
   while (i < len) {
     let maxIndex = undefined // 保存存重叠区间的位置
-    let Arr = []
-    let maxLen = 0
+    let Arr = [] // 生成的重叠数组
+    let maxLen = 0 // 记录最长重叠区间
     for (let j = 0; j < playground.length; j++) {
       if (
         (points[i][0] - playground[j][1]) * (points[i][1] - playground[j][0]) <=
         0 // 存在重叠区间
       ) {
         // 如何？获取重叠区间
+        const left = Math.min(points[i][0], playground[j][0])
+        const right = Math.min(points[i][1], playground[j][1])
+        const t = right - left + 1
+        // 保存记录
+        if (t > maxLen) {
+          maxLen = t
+          maxIndex = j
+          Arr = [left, right]
+        }
       } else {
-        playground.push(points[i])
+        if (playground[playground.length - 1] !== points) {
+          playground.push(points[i])
+        }
       }
     }
     // 如果maxLen不为0，将maxIndex替换为Arr
+    if (maxLen !== 0) {
+      playground[maxIndex] = Arr
+    }
+    i++
   } // 重复迭代，直到所有数组都被判断
   return playground.length
 }
 // @lc code=end
+module.exports = findMinArrowShots

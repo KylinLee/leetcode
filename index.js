@@ -1,3 +1,11 @@
 const lengthOfLIS = require("./300.最长递增子序列")
+const findMinArrowShots = require("./452.用最少数量的箭引爆气球")
 
-console.log(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
+console.log(
+  findMinArrowShots([
+    [10, 16],
+    [2, 8],
+    [1, 6],
+    [7, 12]
+  ])
+)
