@@ -83,7 +83,6 @@ var findMinArrowShots = function (points) {
   if (points.length === 1) {
     return 1
   }
-  let minArrow = 0
   const playground = [points[0]]
   let i = 1
   const len = points.length
@@ -97,7 +96,7 @@ var findMinArrowShots = function (points) {
         0 // 存在重叠区间
       ) {
         // 如何？获取重叠区间
-        const left = Math.min(points[i][0], playground[j][0])
+        const left = Math.max(points[i][0], playground[j][0])
         const right = Math.min(points[i][1], playground[j][1])
         const t = right - left + 1
         // 保存记录
@@ -107,8 +106,9 @@ var findMinArrowShots = function (points) {
           Arr = [left, right]
         }
       } else {
-        if (playground[playground.length - 1] !== points) {
+        if (j === playground.length - 1 && maxLen === 0) {
           playground.push(points[i])
+          break
         }
       }
     }
@@ -118,6 +118,7 @@ var findMinArrowShots = function (points) {
     }
     i++
   } // 重复迭代，直到所有数组都被判断
+  console.log(playground)
   return playground.length
 }
 // @lc code=end
